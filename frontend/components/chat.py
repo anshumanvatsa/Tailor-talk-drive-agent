@@ -11,8 +11,8 @@ EXAMPLE_QUERIES = [
     "📁 What's in the Drive?",
     "📄 Show all PDFs",
     "📊 Recent spreadsheets",
-    "🔍 Files about budget",
-    "📅 Modified this week",
+    "📝 Files about budget",
+    "🗓️ Modified this week",
 ]
 
 TOOL_LABELS = {
@@ -23,7 +23,7 @@ TOOL_LABELS = {
 
 
 def render_chat():
-    st.title("📁 Google Drive File Assistant")
+    st.title("🗂️ Google Drive File Assistant")
     st.caption("Ask me to find files by name, type, content, or date — I'll search your Drive instantly.")
 
     st.markdown("**Quick searches:**")

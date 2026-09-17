@@ -3,11 +3,11 @@ import streamlit as st
 
 def render_sidebar():
     with st.sidebar:
-        st.markdown("## 📁 Drive File Assistant")
+        st.markdown("## 🗂️ Drive File Assistant")
         st.markdown("*Powered by LangGraph + Groq + Google Drive*")
         st.divider()
 
-        st.markdown("### 🔎 Search Tips")
+        st.markdown("### 💡 Search Tips")
         st.info(
             "**By name:** find invoice Q1\n\n"
             "**By type:** show all PDFs\n\n"
@@ -17,7 +17,7 @@ def render_sidebar():
         )
 
         st.divider()
-        st.markdown("### 💬 Session")
+        st.markdown("### 📊 Session")
         msg_count = len(st.session_state.get("messages", []))
         st.metric("Messages in chat", msg_count)
 
@@ -35,4 +35,4 @@ def render_sidebar():
         st.session_state["backend_url"] = backend_url
 
         st.divider()
-        st.caption("TailorTalk Assignment · Built with LangGraph")
+        st.caption("TailorTalk · Built with LangGraph")

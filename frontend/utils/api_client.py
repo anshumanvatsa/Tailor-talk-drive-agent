@@ -1,5 +1,4 @@
 import os
-
 import requests
 from dotenv import load_dotenv
 
@@ -31,10 +30,10 @@ def send_message(message: str, history: list) -> tuple[str, list]:
 
     except requests.exceptions.ConnectionError:
         return (
-            "⚠️ Cannot connect to the backend. Make sure FastAPI is running on port 8000.",
+            "❌ Cannot connect to the backend. Make sure FastAPI is running on port 8000.",
             [],
         )
     except requests.exceptions.Timeout:
-        return "⚠️ Request timed out. The agent is taking too long — please try again.", []
+        return "⏳ Request timed out. The agent is taking too long — please try again.", []
     except Exception as e:
-        return f"⚠️ Unexpected error: {str(e)}", []
+        return f"❌ Unexpected error: {str(e)}", []

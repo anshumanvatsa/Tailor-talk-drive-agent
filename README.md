@@ -1,33 +1,29 @@
+# 🗂️ TailorTalk Drive Agent
 
-<p align="center">
-  <img src="https://img.shields.io/badge/LangGraph-Agent-blueviolet?style=for-the-badge&logo=chainlink&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Groq-Llama%203.3%2070B-orange?style=for-the-badge&logo=meta&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Google%20Drive-API-4285F4?style=for-the-badge&logo=googledrive&logoColor=white"/>
-  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Streamlit-Frontend-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
-</p>
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![LangGraph](https://img.shields.io/badge/LangGraph-ReAct%20Agent-7C3AED?style=flat-square)](https://langchain-ai.github.io/langgraph/)
+[![Groq](https://img.shields.io/badge/Groq-Llama%203.3%2070B-F55036?style=flat-square)](https://groq.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Frontend-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Google Drive](https://img.shields.io/badge/Google%20Drive-API%20v3-4285F4?style=flat-square&logo=googledrive&logoColor=white)](https://developers.google.com/drive)
 
-<h1 align="center">🗂️ TailorTalk Drive Agent</h1>
-
-<p align="center">
-  <b>A conversational AI agent that turns natural language into Google Drive file searches.</b><br/>
-  Ask it anything about your Drive — it finds, filters, and surfaces exactly what you need.
-</p>
+> **A conversational AI agent that turns natural language into Google Drive file searches.**  
+> Ask it anything about your Drive — it finds, filters, and surfaces exactly what you need.
 
 ---
 
 ## ✨ What It Does
 
-**TailorTalk Drive Agent** is an agentic AI assistant that connects to a Google Drive folder and lets you search for files using plain English. Powered by a **LangGraph ReAct agent** and **Groq's Llama 3.3 70B**, it understands your intent and intelligently picks the right Drive API query — no regex, no manual filtering needed.
+**TailorTalk Drive Agent** connects to a Google Drive folder and lets you search for files using plain English. Powered by a **LangGraph ReAct agent** and **Groq's Llama 3.3 70B**, it understands your intent and intelligently queries the Drive API — no regex, no manual filtering.
 
-### Example queries you can ask:
+### Example queries:
 ```
 "Find all PDFs in the drive"
 "Show spreadsheets modified last week"
 "Find documents about marketing budget"
 "Invoice files from January 2024"
 "What types of files are in the drive?"
-"Find files containing the word 'salary'"
+"Find files containing the word salary"
 ```
 
 ---
@@ -38,20 +34,20 @@
 User (Streamlit UI)
         │
         ▼
-  FastAPI Backend
+  FastAPI Backend  (/chat endpoint)
         │
         ▼
-  LangGraph Agent (ReAct loop)
+  LangGraph Agent  (ReAct loop)
         │
-        ├── 🔍 search_drive_files   → Search by name, type, content, date
-        ├── 📋 get_file_details     → Get deep metadata for a specific file
-        └── 📊 list_drive_summary   → Show all file types & counts
+        ├── 🔍 search_drive_files   → by name, type, content, date
+        ├── 📋 get_file_details     → deep metadata for a specific file
+        └── 📊 list_drive_summary   → all file types and counts
         │
         ▼
-  Google Drive API (Service Account)
+  Google Drive API v3  (Service Account)
 ```
 
-The agent uses a **ReAct (Reason + Act)** loop — it reasons about the user's query, picks the right tool with the right parameters, gets the Drive results, and returns a formatted response with clickable links.
+The agent uses a **ReAct loop** — reasons about the user's query → picks the right tool with the right parameters → fetches results → returns a formatted response with clickable links.
 
 ---
 
@@ -73,30 +69,30 @@ The agent uses a **ReAct (Reason + Act)** loop — it reasons about the user's q
 ```
 tailortalk-drive-agent/
 ├── backend/
-│   ├── main.py                  # FastAPI app — /chat, /health endpoints
-│   ├── config.py                # Pydantic settings (env vars)
+│   ├── main.py                   # FastAPI app — /chat, /health endpoints
+│   ├── config.py                 # Pydantic settings (env vars)
 │   ├── requirements.txt
 │   ├── agent/
-│   │   ├── graph.py             # LangGraph StateGraph definition
-│   │   ├── nodes.py             # Agent node + tool binding (Llama 3.3 70B)
-│   │   ├── prompts.py           # System prompt with intent-to-tool mapping
-│   │   └── state.py             # AgentState TypedDict
+│   │   ├── graph.py              # LangGraph StateGraph definition
+│   │   ├── nodes.py              # Agent node + tool binding (Llama 3.3 70B)
+│   │   ├── prompts.py            # System prompt with intent-to-tool mapping
+│   │   └── state.py              # AgentState TypedDict
 │   ├── tools/
-│   │   ├── drive_search.py      # search_drive_files tool
-│   │   ├── drive_metadata.py    # get_file_details tool
-│   │   └── drive_list_types.py  # list_drive_summary tool
+│   │   ├── drive_search.py       # search_drive_files tool
+│   │   ├── drive_metadata.py     # get_file_details tool
+│   │   └── drive_list_types.py   # list_drive_summary tool
 │   ├── services/
-│   │   ├── drive_client.py      # Google Drive API service builder
-│   │   └── query_builder.py     # Drive query string constructor
+│   │   ├── drive_client.py       # Google Drive API service builder
+│   │   └── query_builder.py      # Drive query string constructor
 │   └── models/
-│       └── schemas.py           # ChatRequest / ChatResponse Pydantic models
+│       └── schemas.py            # ChatRequest / ChatResponse Pydantic models
 └── frontend/
-    ├── app.py                   # Streamlit entry point
+    ├── app.py                    # Streamlit entry point
     ├── components/
-    │   ├── chat.py              # Chat UI component
-    │   └── sidebar.py          # Sidebar (backend URL, Drive info)
+    │   ├── chat.py               # Chat UI component
+    │   └── sidebar.py            # Sidebar (backend URL, Drive info, tips)
     └── utils/
-        └── api_client.py        # HTTP client to call FastAPI backend
+        └── api_client.py         # HTTP client to call FastAPI backend
 ```
 
 ---
@@ -105,7 +101,7 @@ tailortalk-drive-agent/
 
 ### Prerequisites
 - Python 3.10+
-- A Google Cloud project with the **Drive API** enabled
+- A Google Cloud project with **Drive API** enabled
 - A **Service Account** with access to your Drive folder
 - A **Groq API key** (free at [console.groq.com](https://console.groq.com))
 
@@ -118,7 +114,7 @@ cd Tailor-talk-drive-agent
 ### 2. Google Drive Setup
 1. Go to [Google Cloud Console](https://console.cloud.google.com)
 2. Create a project → Enable **Google Drive API**
-3. Create a **Service Account** → Download the JSON key as `service_account.json` in the project root
+3. Create a **Service Account** → Download JSON key as `service_account.json` in project root
 4. Share your Drive folder with the service account email
 5. Copy your Drive folder ID from the URL:  
    `https://drive.google.com/drive/folders/`**`<YOUR_FOLDER_ID>`**
@@ -143,7 +139,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-API docs available at: `http://localhost:8000/docs`
+Swagger docs available at: `http://localhost:8000/docs`
 
 ### 5. Run the Frontend
 ```bash
@@ -166,8 +162,6 @@ streamlit run app.py
 ## 🔌 API Reference
 
 ### `POST /chat`
-Send a message and conversation history to the agent.
-
 ```json
 {
   "message": "Find all invoices from last month",
@@ -195,13 +189,11 @@ Send a message and conversation history to the agent.
 
 ## 🧠 How the Agent Thinks
 
-The agent uses a **LangGraph ReAct loop**:
-
-1. **User sends a query** → e.g. "Find Excel files modified this week"
-2. **LLM reasons** → decides to call `search_drive_files` with `file_type="sheet"`, `modified_after="this week"`
-3. **Tool executes** → builds a Drive API query, fetches results
+1. **User query** → e.g. *"Find Excel files modified this week"*
+2. **LLM reasons** → calls `search_drive_files` with `file_type="sheet"`, `modified_after="this week"`
+3. **Tool executes** → builds Drive API query, fetches results
 4. **LLM formats** → returns clickable file links with names, dates, sizes
-5. **Agent invites refinement** → "Want me to filter further?"
+5. **Agent invites refinement** → *"Want me to filter further?"*
 
 ---
 
@@ -211,4 +203,4 @@ MIT License — feel free to use, modify, and build upon this.
 
 ---
 
-<p align="center">Built by <a href="https://github.com/anshumanvatsa">@anshumanvatsa</a> &nbsp;|&nbsp; LangGraph + Groq + Google Drive API</p>
+Built by [@anshumanvatsa](https://github.com/anshumanvatsa) · LangGraph + Groq + Google Drive API

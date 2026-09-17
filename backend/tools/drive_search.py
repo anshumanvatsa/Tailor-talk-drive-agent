@@ -70,7 +70,7 @@ def search_drive_files(
             modified = f.get("modifiedTime", "")[:10]
             lines.append(
                 f"{emoji} **[{f['name']}]({view_link})**\n"
-                f"&nbsp;&nbsp;&nbsp;📅 Modified: {modified} &nbsp;|&nbsp; 📦 Size: {size}\n"
+                f"&nbsp;&nbsp;&nbsp; Modified: {modified} &nbsp;|&nbsp; Size: {size}\n"
             )
         return "\n".join(lines)
 
@@ -80,13 +80,13 @@ def search_drive_files(
 
 def _mime_to_emoji(mime: str) -> str:
     if "pdf" in mime:
-        return "📕"
+        return "📄"
     if "spreadsheet" in mime or "excel" in mime or "csv" in mime:
         return "📊"
     if "document" in mime or "word" in mime:
         return "📝"
     if "presentation" in mime or "powerpoint" in mime:
-        return "🎞️"
+        return "📋"
     if "image" in mime:
         return "🖼️"
     if "video" in mime:
@@ -95,7 +95,7 @@ def _mime_to_emoji(mime: str) -> str:
         return "📁"
     if "text" in mime:
         return "📃"
-    return "📄"
+    return "📎"
 
 
 def _format_size(size_str) -> str:
