@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+langchain
+langchain-core
+langchain-groq
+langgraph
+google-api-python-client
+google-auth
+pydantic
+pydantic-settings
+python-dotenv
+httpx
